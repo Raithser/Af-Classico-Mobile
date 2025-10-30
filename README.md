@@ -1,6 +1,6 @@
 # Tugas 7
 
-##Jelaskan apa itu widget tree pada Flutter dan bagaimana hubungan parent-child (induk-anak) bekerja antar widget?
+## Jelaskan apa itu widget tree pada Flutter dan bagaimana hubungan parent-child (induk-anak) bekerja antar widget?
 
 Dalam Flutter, seluruh tampilan antarmuka pengguna dibangun menggunakan elemen yang disebut widget, yang tersusun secara hierarkis membentuk struktur bernama widget tree atau pohon widget. Setiap widget, mulai dari teks, tombol, hingga tata letak seperti Row dan Column, memiliki peran tertentu dalam membentuk tampilan aplikasi. Struktur pohon ini memungkinkan Flutter untuk mengatur dan menggambar ulang antarmuka dengan efisien, karena hanya bagian dari pohon yang berubah saja yang akan diperbarui saat terjadi interaksi atau perubahan data. Dengan pendekatan ini, Flutter mampu menampilkan UI yang halus, responsif, dan hemat sumber daya.
 
@@ -8,7 +8,7 @@ Hubungan antara widget dalam widget tree disebut hubungan parent–child (induk�
 
 ---
 
-##Sebutkan semua widget yang kamu gunakan dalam proyek ini dan jelaskan fungsinya.
+## Sebutkan semua widget yang kamu gunakan dalam proyek ini dan jelaskan fungsinya.
 
 Dalam proyek Flutter yang saya buat ini, saya menggunakan beberapa widget utama untuk membangun struktur dan tampilan aplikasi. Widget pertama yang saya gunakan adalah MaterialApp, yang berfungsi sebagai root widget dari seluruh aplikasi saya. Melalui MaterialApp, saya dapat mengatur tema warna, judul aplikasi, serta menentukan halaman awal yang akan ditampilkan ketika aplikasi dijalankan. Di dalamnya, saya menggunakan Scaffold sebagai kerangka dasar halaman. Widget ini membantu saya menambahkan AppBar di bagian atas, area body di tengah untuk konten utama, dan ruang untuk komponen tambahan seperti SnackBar atau FloatingActionButton. Dengan adanya Scaffold, tampilan halaman saya menjadi lebih teratur dan mengikuti standar Material Design yang digunakan Flutter.
 
@@ -16,7 +16,7 @@ Selain itu, saya menggunakan AppBar untuk menampilkan judul aplikasi di bagian a
 
 ---
 
-##Apa fungsi dari widget MaterialApp? Jelaskan mengapa widget ini sering digunakan sebagai widget root.
+## Apa fungsi dari widget MaterialApp? Jelaskan mengapa widget ini sering digunakan sebagai widget root.
 
 Widget MaterialApp dalam Flutter berfungsi sebagai wadah utama yang menyediakan konfigurasi dasar dan struktur untuk aplikasi berbasis Material Design. Ia mengatur berbagai aspek penting seperti tema warna, navigasi antarhalaman (routes), judul aplikasi, font, hingga pengaturan locale dan debug banner. Dengan menggunakan MaterialApp, pengembang tidak perlu lagi menulis ulang elemen-elemen standar seperti efek animasi tombol, tampilan AppBar, atau gaya visual khas Android karena semuanya sudah disediakan oleh kerangka Material Design yang terintegrasi di dalamnya.
 
@@ -24,7 +24,7 @@ Widget ini hampir selalu digunakan sebagai widget root (paling atas) karena menj
 
 ---
 
-##Jelaskan perbedaan antara StatelessWidget dan StatefulWidget. Kapan kamu memilih salah satunya?
+## Jelaskan perbedaan antara StatelessWidget dan StatefulWidget. Kapan kamu memilih salah satunya?
 
 Perbedaan utama antara StatelessWidget dan StatefulWidget terletak pada kemampuan keduanya dalam menangani perubahan data atau keadaan (state) selama aplikasi berjalan. StatelessWidget adalah widget yang bersifat statis, artinya tampilan dan datanya tidak akan berubah setelah pertama kali dibangun. Widget ini hanya menampilkan data yang sudah tetap, dan jika ada perubahan, maka seluruh widget harus diganti atau dibangun ulang dari luar. Contoh penggunaannya adalah elemen seperti teks, ikon, atau tombol yang tidak berubah-ubah tampilannya, misalnya Text('Hello World') atau Icon(Icons.home).
 
@@ -34,7 +34,7 @@ Secara sederhana, StatelessWidget digunakan ketika tampilan bersifat tetap, seda
 
 ---
 
-##Apa itu BuildContext dan mengapa penting di Flutter? Bagaimana penggunaannya di metode build?
+## Apa itu BuildContext dan mengapa penting di Flutter? Bagaimana penggunaannya di metode build?
 
 BuildContext adalah objek penting dalam Flutter yang berfungsi untuk menghubungkan sebuah widget dengan posisi dan lingkungan tempatnya berada di dalam widget tree. Melalui BuildContext, widget dapat mengakses informasi yang disediakan oleh widget lain di atasnya, seperti tema aplikasi, ukuran layar, atau sistem navigasi. Setiap widget memiliki konteksnya sendiri, dan konteks tersebut memungkinkan interaksi yang efisien antarwidget tanpa harus saling mengetahui detail implementasinya. Dengan kata lain, BuildContext membantu Flutter memahami “di mana” sebuah widget berada dan bagaimana ia seharusnya ditampilkan dalam keseluruhan struktur aplikasi.
 
@@ -42,7 +42,7 @@ Dalam metode build(), BuildContext digunakan untuk membangun tampilan yang sesua
 
 ---
 
-##Jelaskan konsep "hot reload" di Flutter dan bagaimana bedanya dengan "hot restart".
+## Jelaskan konsep "hot reload" di Flutter dan bagaimana bedanya dengan "hot restart".
 
 Konsep hot reload dalam Flutter adalah fitur yang memungkinkan pengembang melihat hasil perubahan kode secara langsung tanpa perlu menghentikan dan menjalankan ulang seluruh aplikasi. Ketika pengembang menyimpan perubahan pada file Dart, Flutter hanya memperbarui bagian kode yang diubah dan menyuntikkannya ke dalam aplikasi yang sedang berjalan. Dengan demikian, tampilan antarmuka (UI) dapat berubah secara instan tanpa kehilangan state atau kondisi terakhir aplikasi. Fitur ini sangat membantu dalam proses pengembangan karena mempercepat iterasi, terutama saat menyempurnakan desain tampilan, memperbaiki bug kecil, atau menyesuaikan logika antarmuka pengguna.
 
