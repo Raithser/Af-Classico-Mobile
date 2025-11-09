@@ -50,6 +50,7 @@ Berbeda dengan hot reload, fitur hot restart akan memulai ulang seluruh aplikasi
 
 
 ---
+
 # Tugas 8
 
 ## Perbedaan antara Navigator.push() dan Navigator.pushReplacement()
@@ -66,7 +67,7 @@ Aplikasi Football Shop memanfaatkan hierarchy widget seperti Scaffold, AppBar, d
 
 AppBar digunakan untuk menampilkan judul halaman dan warna tema utama, seperti “Af Classico”, yang memberikan identitas visual yang konsisten di bagian atas layar. Sedangkan Drawer berfungsi sebagai navigasi samping dengan dua menu utama “Home” dan “Add Product”. Dengan struktur ini, pengguna dapat berpindah antarhalaman dengan mudah tanpa kehilangan konteks, sekaligus menjaga pengalaman pengguna yang familiar dan intuitif di seluruh aplikasi.
 
---
+---
 
 ## Kelebihan menggunakan Padding, SingleChildScrollView, dan ListView
 
