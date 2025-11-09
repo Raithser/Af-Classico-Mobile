@@ -47,3 +47,37 @@ Dalam metode build(), BuildContext digunakan untuk membangun tampilan yang sesua
 Konsep hot reload dalam Flutter adalah fitur yang memungkinkan pengembang melihat hasil perubahan kode secara langsung tanpa perlu menghentikan dan menjalankan ulang seluruh aplikasi. Ketika pengembang menyimpan perubahan pada file Dart, Flutter hanya memperbarui bagian kode yang diubah dan menyuntikkannya ke dalam aplikasi yang sedang berjalan. Dengan demikian, tampilan antarmuka (UI) dapat berubah secara instan tanpa kehilangan state atau kondisi terakhir aplikasi. Fitur ini sangat membantu dalam proses pengembangan karena mempercepat iterasi, terutama saat menyempurnakan desain tampilan, memperbaiki bug kecil, atau menyesuaikan logika antarmuka pengguna.
 
 Berbeda dengan hot reload, fitur hot restart akan memulai ulang seluruh aplikasi dari awal, menghapus seluruh state yang sedang aktif. Artinya, semua data atau posisi terakhir yang disimpan dalam StatefulWidget akan hilang, dan aplikasi akan kembali ke kondisi awal seperti saat pertama kali dijalankan. Meskipun prosesnya tetap lebih cepat dibandingkan menjalankan ulang aplikasi sepenuhnya (full restart), hot restart digunakan ketika perubahan kode memengaruhi struktur utama aplikasi, seperti pada inisialisasi variabel global, konfigurasi awal, atau perubahan pada fungsi utama (main function). Dengan kata lain, hot reload mempertahankan keadaan aplikasi untuk efisiensi pengembangan antarmuka, sedangkan hot restart digunakan ketika perubahan yang dilakukan membutuhkan pemuatan ulang total agar berjalan dengan benar.
+
+
+---
+# Tugas 8
+
+## Perbedaan antara Navigator.push() dan Navigator.pushReplacement()
+
+Navigator.push() dan Navigator.pushReplacement() sama-sama digunakan untuk berpindah antarhalaman, tetapi berbeda dalam cara mengelola stack halaman. Navigator.push() menambahkan halaman baru di atas halaman saat ini tanpa menghapus halaman sebelumnya. Dengan begitu, pengguna masih bisa kembali ke halaman sebelumnya menggunakan tombol “back”. Sebaliknya, Navigator.pushReplacement() menggantikan halaman saat ini dengan halaman baru, sehingga halaman sebelumnya dihapus dari stack dan tidak bisa dikembalikan lagi.
+
+Dalam aplikasi Football Shop, Navigator.push() digunakan ketika pengguna menekan tombol “Add Product” dari halaman utama atau dari menu drawer. Hal ini memungkinkan pengguna untuk kembali ke halaman utama setelah selesai menambahkan produk. Sedangkan Navigator.pushReplacement() digunakan saat pengguna memilih menu “Home” di Drawer. Tujuannya agar halaman utama menggantikan halaman lain di stack dan navigasi tidak menumpuk, menjaga alur aplikasi tetap bersih dan efisien.
+
+---
+
+## Pemanfaatan hierarchy widget seperti Scaffold, AppBar, dan Drawer
+
+Aplikasi Football Shop memanfaatkan hierarchy widget seperti Scaffold, AppBar, dan Drawer untuk menciptakan struktur halaman yang konsisten di seluruh aplikasi. Scaffold menjadi kerangka utama setiap halaman, menyediakan area khusus untuk app bar, body, dan drawer. Dengan pola ini, setiap halaman seperti MyHomePage dan ProductFormPage memiliki tata letak yang rapi dan seragam.
+
+AppBar digunakan untuk menampilkan judul halaman dan warna tema utama, seperti “Af Classico”, yang memberikan identitas visual yang konsisten di bagian atas layar. Sedangkan Drawer berfungsi sebagai navigasi samping dengan dua menu utama “Home” dan “Add Product”. Dengan struktur ini, pengguna dapat berpindah antarhalaman dengan mudah tanpa kehilangan konteks, sekaligus menjaga pengalaman pengguna yang familiar dan intuitif di seluruh aplikasi.
+
+--
+
+## Kelebihan menggunakan Padding, SingleChildScrollView, dan ListView
+
+Widget seperti Padding, SingleChildScrollView, dan ListView sangat membantu dalam mengatur tata letak form agar tetap nyaman digunakan di berbagai ukuran layar. Padding digunakan untuk memberi jarak antar-elemen input seperti nama produk, harga, dan deskripsi sehingga tampilan lebih rapi dan tidak menempel satu sama lain. Sementara itu, SingleChildScrollView memungkinkan pengguna menggulir seluruh halaman form ketika tinggi layar tidak cukup, sehingga tidak ada bagian form yang tersembunyi di balik keyboard.
+
+Pada file productlist_form.dart, kombinasi antara Form, Column, dan SingleChildScrollView digunakan untuk menampilkan seluruh elemen input dengan tata letak vertikal yang fleksibel. Pendekatan ini membuat tampilan form tetap proporsional dan responsif di berbagai perangkat. ListView juga bisa digunakan untuk menampung daftar produk secara dinamis, memastikan elemen-elemen dapat ditampilkan dengan scrolling yang lancar dan efisien.
+
+---
+
+## Penyesuaian warna tema agar konsisten dengan brand
+
+Penyesuaian warna tema pada aplikasi Football Shop dilakukan dengan memanfaatkan ThemeData dan ColorScheme di file main.dart. Warna biru dijadikan warna utama (primary color) dan diterapkan secara konsisten pada elemen penting seperti AppBar, tombol Save, dan ikon utama. Selain itu, digunakan juga ColorScheme.fromSeed(seedColor: Colors.blue) untuk menghasilkan palet warna turunan yang tetap harmonis di seluruh komponen aplikasi.
+
+Konsistensi warna ini membantu memperkuat identitas visual brand Football Shop yang modern dan sporty. Dengan tema warna yang sama di seluruh halaman — mulai dari halaman utama hingga halaman form tambah produk - pengguna mendapatkan pengalaman visual yang seragam dan profesional. Pendekatan ini tidak hanya meningkatkan estetika aplikasi, tetapi juga memperkuat pengenalan merek melalui warna khas yang mudah diingat.
