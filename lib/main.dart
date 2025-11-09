@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:af_classico_mobile/menu.dart';
+import 'package:af_classico_mobile/screens/menu.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -10,9 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Af Classico',
       theme: ThemeData(
-         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: Colors.blueAccent[400]),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+          primary: Colors.blue,
+          secondary: Colors.red, // Untuk aksen yang berbeda
+        ),
+        useMaterial3: true,
       ),
       home: MyHomePage(),
     );
