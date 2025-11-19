@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:af_classico_mobile/widgets/left_drawer.dart';
-import 'package:af_classico_mobile/screens/productlist_form.dart'; 
+import 'package:af_classico_mobile/screens/productlist_form.dart';
 import 'package:af_classico_mobile/widgets/product_card.dart';
-
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -14,7 +13,7 @@ class MyHomePage extends StatelessWidget {
   final List<ItemHomepage> items = [
     ItemHomepage("All Products", Icons.sports_soccer, Colors.blue),
     ItemHomepage("Add Product", Icons.add, Colors.red),
-    ItemHomepage("My Products", Icons.person, Colors.green),
+    ItemHomepage("Logout", Icons.person, Colors.green),
   ];
 
   @override
@@ -30,12 +29,17 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      drawer: const LeftDrawer(), // TAMBAHKAN DRAWER DI SINI
+      drawer: const LeftDrawer(),
+
+      // ==============================
+      //      FIX: PAKAI COLUMN + EXPANDED
+      // ==============================
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // INFO CARDS
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -44,32 +48,31 @@ class MyHomePage extends StatelessWidget {
                 InfoCard(title: 'Class', content: kelas),
               ],
             ),
-            const SizedBox(height: 16.0),
-            Center(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Selamat datang di Af Classico',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-                  GridView.count(
-                    primary: true,
-                    padding: const EdgeInsets.all(20),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 3,
-                    shrinkWrap: true,
-                    children: items.map((ItemHomepage item) {
-                      return ItemCard(item, context);
-                    }).toList(),
-                  ),
-                ],
+
+            const SizedBox(height: 16),
+
+            const Text(
+              'Selamat datang di Af Classico',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // ==========================
+            //  FIX: Expanded agar GridView tidak overflow
+            // ==========================
+            Expanded(
+              child: GridView.count(
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 3,
+                children: items.map((ItemHomepage item) {
+                  return ItemCard(item);
+                }).toList(),
               ),
             ),
           ],
@@ -113,52 +116,7 @@ class InfoCard extends StatelessWidget {
   }
 }
 
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-  final BuildContext context;
 
-  const ItemCard(this.item, this.context, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color,
-      child: InkWell(
-        onTap: () {
-          // Tambahkan navigasi berdasarkan item
-          if (item.name == "Add Product") {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProductFormPage()),
-            );
-          }
-          // Tambahkan navigasi untuk item lainnya sesuai kebutuhan
-        },
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class ItemHomepage {
  final String name;

@@ -1,8 +1,9 @@
+import 'package:af_classico_mobile/widgets/product_entry_card.dart';
 import 'package:flutter/material.dart';
 import 'package:af_classico_mobile/screens/menu.dart';
 import 'package:af_classico_mobile/screens/productlist_form.dart';
 import 'package:af_classico_mobile/widgets/product_card.dart';
-
+import 'package:af_classico_mobile/screens/product_entry_list.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -64,10 +65,22 @@ class LeftDrawer extends StatelessWidget {
           },
         ), 
         // TODO: Buat ListTile baru untuk ke halaman melihat news
-      
+        ListTile(
+            leading: const Icon(Icons.add_reaction_rounded),
+            title: const Text('Product List'),
+            onTap: () {
+                // Route to product list page
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProductEntryListPage()),
+                );
+            },
+        ),
         
         ],
       ),
+
+      
     );
   }
 }

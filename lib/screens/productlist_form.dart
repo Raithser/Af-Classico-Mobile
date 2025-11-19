@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:af_classico_mobile/widgets/left_drawer.dart';
+import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:af_classico_mobile/screens/menu.dart';
+import 'package:http/http.dart' as http;
+import '../main.dart';
 
 
 class ProductFormPage extends StatefulWidget {
@@ -18,9 +24,14 @@ class _ProductFormPageState extends State<ProductFormPage> {
   bool _isFeatured = false;
   double _price = 0;
 
-  final List<String> _categories = [
-    'Jersey', 'Boots', 'Training Gear', 'Football Accessories', 'Collectibles', 'Equipments',
-  ];
+  final Map<String, String> _categoryMap = {
+  '⚽ Jersey': 'jersey',
+  '👟 Football Boots': 'boots',
+  '🏋️ Training Gear': 'training',
+  '🎯 Football Accessories': 'accessories',
+  '🏆 Collectibles': 'collectibles',
+  '⚙️ Equipments': 'equipment',
+};
 
   bool _isValidUrl(String url) {
   final uri = Uri.tryParse(url);
@@ -29,6 +40,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Form Tambah Produk'),
@@ -70,7 +82,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 ),
               ),
 
-              // === Content ===
+              // === Deskripsi ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -142,10 +154,10 @@ class _ProductFormPageState extends State<ProductFormPage> {
                     ),
                   ),
                   value: _category,
-                  items: _categories
+                  items: _categoryMap.keys
                       .map((cat) => DropdownMenuItem(
-                            value: cat,
-                            child: Text(cat[0].toUpperCase() + cat.substring(1)),
+                            value: _categoryMap[cat],
+                            child: Text(cat),
                           ))
                       .toList(),
                   onChanged: (String? newValue) {
@@ -192,7 +204,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SwitchListTile(
-                  title: const Text("Tandai sebagai Produk Unggulan"),
+                  title: const Text("Tandai sebagai Produk Terbaru"),
                   value: _isFeatured,
                   onChanged: (bool value) {
                     setState(() {
@@ -211,50 +223,62 @@ class _ProductFormPageState extends State<ProductFormPage> {
                       backgroundColor: MaterialStateProperty.all(Colors.indigo),
                       minimumSize: MaterialStateProperty.all(const Size(200, 50)),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Produk berhasil tersimpan'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Nama: $_title'),
-                                    Text('Deskripsi: ${_content.length > 50 ? _content.substring(0, 50) + "..." : _content}'),
-                                    Text('Harga: Rp${_price.toStringAsFixed(0)}'),
-                                    Text('Kategori: $_category'),
-                                    Text('Thumbnail: ${_thumbnail.isEmpty ? "Tidak ada" : _thumbnail}'),
-                                    Text('Unggulan: ${_isFeatured ? "Ya" : "Tidak"}'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
+                    onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          try {
+                            print("Mengirim data ke server...");
+                            
+                            // Pastikan user sudah login
+                            if (!request.loggedIn) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Silakan login terlebih dahulu!")),
+                                );
+                              }
+                              return;
+                            }
 
-                                    _formKey.currentState!.reset();
-                                    setState(() {
-                                      _title = "";
-                                      _content = "";
-                                      _category = null;
-                                      _thumbnail = "";
-                                      _isFeatured = false;
-                                    });
-                                  },
-                                ),
-                              ],
+                            // **SOLUSI: Gunakan http package langsung untuk kontrol lebih baik**
+                            final response = await request.post(
+                              "http://localhost:8000/create-product-flutter/",
+                              {
+                                "title": _title,
+                                "description": _content,
+                                "thumbnail": _thumbnail,
+                                "category": _category ?? "", // default value
+                                "is_featured": _isFeatured.toString(), // Konversi boolean ke String
+                                "price": _price.toInt().toString(),
+                              },
                             );
-                          },
-                        );
-                        
-                      }
-                    },
-                    child: const Text(
+
+                            print("Response: $response");
+
+                            if (context.mounted) {
+                              if (response['status'] == 'success') {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Produk berhasil disimpan!")),
+                                );
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Error: ${response['message']}")),
+                                );
+                              }
+                            }
+                          } catch (e) {
+                            print("Error: $e");
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Error: $e")),
+                              );
+                            }
+                          }
+                        }
+                      },
+                      child: const Text(
                       "Save",
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
