@@ -82,3 +82,18 @@ Pada file productlist_form.dart, kombinasi antara Form, Column, dan SingleChildS
 Penyesuaian warna tema pada aplikasi Football Shop dilakukan dengan memanfaatkan ThemeData dan ColorScheme di file main.dart. Warna biru dijadikan warna utama (primary color) dan diterapkan secara konsisten pada elemen penting seperti AppBar, tombol Save, dan ikon utama. Selain itu, digunakan juga ColorScheme.fromSeed(seedColor: Colors.blue) untuk menghasilkan palet warna turunan yang tetap harmonis di seluruh komponen aplikasi.
 
 Konsistensi warna ini membantu memperkuat identitas visual brand Football Shop yang modern dan sporty. Dengan tema warna yang sama di seluruh halaman — mulai dari halaman utama hingga halaman form tambah produk - pengguna mendapatkan pengalaman visual yang seragam dan profesional. Pendekatan ini tidak hanya meningkatkan estetika aplikasi, tetapi juga memperkuat pengenalan merek melalui warna khas yang mudah diingat.
+
+
+---
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial
+
+1. buat app baru buat authentication
+2. setting corsheader, views, dan urlnya
+3. integrasi sama flutter
+4. buat model kustom
+5. lakuin fetch data
+6. integrasi in modelnya
+7. integrasi form django
+8. buat fitur logout
+9. don
